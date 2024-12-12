@@ -2,7 +2,7 @@ import React,{useState,useContext} from 'react'
 import CartContext from '../store/cart-context'
 import  classes from './TshitForm.module.css'
 
-const TshirtForm = () => {
+const TshirtForm = ({onSetDisplayCart}) => {
 
     const CartCtx= useContext(CartContext)
 
@@ -18,7 +18,12 @@ const TshirtForm = () => {
     function handleItemSubmit(eve){
         eve.preventDefault()
           CartCtx.addToCart(handleInput)
+        
     }
+
+   function handleDisplayCart(){
+    onSetDisplayCart(true)
+   }
 
   return (
     <>
@@ -48,8 +53,8 @@ const TshirtForm = () => {
             <input value={handleInput.Small} id='small' onChange={(event)=> setHandleInput({...handleInput,Small:event.target.value})}  type='number' />
             </div>
             <div>
-            <button>Submit</button>
-            <button>Cart {CartCtx.cart.length}</button>
+            <button type='submit'>Submit</button>
+            <button type='button' onClick={handleDisplayCart}>Cart {CartCtx.cartCount}</button>
             </div>
            
         </form>

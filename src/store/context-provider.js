@@ -5,36 +5,33 @@ const ContextProvider = (props) => {
 
     const [listItems,setListItems] = useState([])
     const [cartList,setCartList] = useState([])
+    const [cartCount,setCartCount] = useState(0)
 
     function addToListItems(received){
         let id = listItems.length === 0 ? 1 : listItems.length + 1
         setListItems((lastItem)=> [...lastItem,{...received,id:id}])
+        setCartList((lastItem)=> [...lastItem,{itemId: id,Large: 0,Medium:0,Small:0,total:0,price:received.price}])
     }
 
     function removeFromListItems(lId,method){
-        console.log(lId,method)
-        console.log(listItems[0][method])
-        let updatedObj = listItems.map(list => list.id === lId ? {...list,[method]: Number(list[method]) > 0 ? Number(list[method]) - 1 :  0}: list);
         
-        const forCartList = updatedObj.filter(list => list.id === lId);
-        const cartItem = {
-            itemName: forCartList[0].name,
-            large: forCartList[0].Large - 1 || 0,
-            medium : forCartList[0].Medium - 1 || 0,
-            small : forCartList[0].Small - 1 || 0,
-            
-        }
+        let updatedObj = listItems.map(list => list.id === lId ? {...list,[method]: Number(list[method]) > 0 ? Number(list[method]) - 1 :  0}: list);
 
-        setListItems(updatedObj)
-        setCartList([...cartList,cartItem])
+        setListItems((latestItems)=> updatedObj)
+       
 
     }
 
+ 
     let globalObj = {
         cart: cartList,
         items: listItems,
         addToCart: addToListItems,
-        removeFromCart: removeFromListItems
+        cartCount: cartCount,
+        setListItems: setListItems,
+        setCartCount: setCartCount,
+        removeFromCart: removeFromListItems,
+        setShowToCart: setCartList
     }
 
 
