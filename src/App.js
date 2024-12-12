@@ -1,10 +1,17 @@
+import Cart from "./components/Cart";
+import TshirtDisplay from "./components/TshirtDisplay";
+import TshirtForm from "./components/TshirtForm";
+import ContextProvider from "./store/context-provider";
+
 
 
 function App() {
   return (
-    <div>
-     
-    </div>
+    <ContextProvider>
+       <TshirtForm />
+       <TshirtDisplay />
+       <Cart />
+       </ContextProvider>
   );
 }
 
